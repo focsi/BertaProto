@@ -4,16 +4,29 @@
 
 <div id="bodyContainer" ng-app="IgenyApp">
     <section id="content">
-        <div class="container">
+        <div class="container" data-ng-controller="formController">
             <div class="row">
-                <div class="flip-container text-center col-md-12" ng-controller="IgenyCtrl" ng-init="nextIgeny()">
+                <div class="flip-container text-center col-md-12"  ng-init="nextIgeny()">
                     <div class="back" ng-class="{flip: answered, correct: correctAnswer, incorrect:!correctAnswer}">
                         <p class="lead">{{Megnevezes}}</p>
-                        <p>
-                            <button class="btn btn-info btn-lg next option" ng-click="nextQuestion()" ng-disabled="working">Next Question</button>
-                        </p>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="igenyid">ID</label>
+                        <div>
+                            <input name="igenyid" data-ng-model="igeny.id" type="text" id="igenyid" placeholder="ID"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <button type="button" class=" btn btn-default" data-ng-click="processForm()">Send</button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </section>

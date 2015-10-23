@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Description;
 using BertaProto.Models;
 using System.Linq;
+using System;
 
 namespace BertaProto.Controllers
 {
@@ -16,10 +17,12 @@ namespace BertaProto.Controllers
         {
             if ( db.Igenyek.Count() == 0 )
             {
-                for (int i = 0; i < 25; i++)
+                // ID oszlopot automatikusan tölti
+                for (int i = 1; i < 25; i++)
                 {
-                    db.Igenyek.Add(new Igeny() { ID = i, Leiras = "Leírás " + i.ToString(), Megnevezes = "Megnevezés " + i.ToString(), Objektum = (90000000 + i).ToString() });
+                    db.Igenyek.Add(new Igeny() {  Leiras = "Leírás " + i.ToString(), Megnevezes = "Megnevezés " + i.ToString(), Objektum = (90000000 + i).ToString() });
                 }
+                db.SaveChanges();
             }
         }
         protected override void Dispose(bool disposing)
@@ -33,11 +36,11 @@ namespace BertaProto.Controllers
         }
 
         [ResponseType(typeof(Igeny))]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get( int id )
         {
             var userId = User.Identity.Name;
 
-            Igeny nextIgeny = await this.NextQuestionAsync(userId);
+            Igeny nextIgeny = await GetIgenyAsync( id );
 
             if (nextIgeny == null)
             {
@@ -45,6 +48,13 @@ namespace BertaProto.Controllers
             }
 
             return this.Ok(nextIgeny);
+        }
+
+        private async Task<Igeny> GetIgenyAsync(int id)
+        {
+            return  await this.db.Igenyek
+                .Where( g => g.ID == id )
+                .FirstOrDefaultAsync();
         }
 
         private async Task<Igeny> NextQuestionAsync(string userId)
