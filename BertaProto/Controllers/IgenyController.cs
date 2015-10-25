@@ -15,15 +15,7 @@ namespace BertaProto.Controllers
         private IgenyDBContext db = new IgenyDBContext();
         public IgenyController()
         {
-            if ( db.Igenyek.Count() == 0 )
-            {
-                // ID oszlopot automatikusan tölti
-                for (int i = 1; i < 25; i++)
-                {
-                    db.Igenyek.Add(new Igeny() {  Leiras = "Leírás " + i.ToString(), Megnevezes = "Megnevezés " + i.ToString(), Objektum = (90000000 + i).ToString() });
-                }
-                db.SaveChanges();
-            }
+
         }
         protected override void Dispose(bool disposing)
         {

@@ -13,6 +13,8 @@ namespace BertaProto
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(new Models.IgenyDBContext.IgenyDBInitializer());
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
