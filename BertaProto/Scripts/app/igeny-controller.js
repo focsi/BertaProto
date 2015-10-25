@@ -1,17 +1,14 @@
 ﻿var igenyModule= angular.module('IgenyApp', []);
 
 
-igenyModule.controller('IgenyCtrl', function ($scope, $http) {
-    console.log("Next igenyCtrl");
+igenyModule.controller('listCtrl', function ($scope, $http) {
+    console.log("Next listCtrl");
     $scope.nextIgeny = function () {
-        console.log("Next igény");
+        console.log("All igény");
 
-        $http.get("/api/igeny").success(function (data, status, headers, config) {
-            console.log(data.megnevezes );
-            $scope.ID = data.id;
-            $scope.Megnevezes = data.megnevezes;
-            $scope.Leiras = data.leiras;
-            $scope.Objektum = data.objektum;
+        $http.get("/api/igenyek").success(function (data, status, headers, config) {
+            console.log(data );
+            $scope.igenyek = data;
         }).error(function (data, status, headers, config) {
             console.log( "Hiba: " + data );
         });
@@ -25,7 +22,7 @@ igenyModule.controller("formController", function ($scope, $http) {
     $scope.processForm = function () {
         console.log("beírt érték" + $scope.igeny.id);
 
-        $http.get("/api/igeny/" + $scope.igeny.id ).success(function (data, status, headers, config) {
+        $http.get("/api/igenyek/" + $scope.igeny.id ).success(function (data, status, headers, config) {
             console.log(data.megnevezes);
             $scope.Megnevezes = data.megnevezes;
             $scope.Leiras = data.leiras;

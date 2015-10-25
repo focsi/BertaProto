@@ -4,9 +4,18 @@
 
 <div id="bodyContainer" ng-app="IgenyApp">
     <section id="content">
+        <div class="container" data-ng-controller="listCtrl" ng-init="nextIgeny()">
+            <div ng-repeat="model in igenyek track by model.id">
+                <div class="row">
+                    <div class="col-sm-3">{{model.megnevezes}}</div>
+                    <div class="col-sm-3">{{model.leiras}}</div>
+                </div>
+            </div>
+        </div>
+
         <div class="container" data-ng-controller="formController">
             <div class="row">
-                <div class="flip-container text-center col-md-12"  ng-init="nextIgeny()">
+                <div class="flip-container text-center col-md-12">
                     <div class="back" ng-class="{flip: answered, correct: correctAnswer, incorrect:!correctAnswer}">
                         <p class="lead">{{Megnevezes}}</p>
                     </div>
